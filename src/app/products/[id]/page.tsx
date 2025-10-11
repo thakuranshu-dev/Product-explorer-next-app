@@ -1,12 +1,6 @@
 import { fetchProducts } from "@/lib/api";
-type Product = {
-  id: number,
-  title: string,
-  price: number,
-  rating: number,
-  thumbnail: string,
-  deliveryFee: string,
-}
+import { Rating,RatingButton } from "@/components/ui/shadcn-io/rating";
+import { Product } from "@/types";
 
 type Params = {
   params: {
@@ -34,16 +28,44 @@ export default async function ProductPage({ params }: Params) {
     console.error('Unable to fetch product details:', error);
   } 
   if (!product) {
-    return <div className="p-4">Product not found.</div>;
+    return <p className="p-4 w-full h-full block text-center  border">Product not found.</p>;
   }
   return (  
-    <div className="p-4 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">{product.title}</h1>
-      <img src={product.thumbnail} alt={product.title} className="w-full h-64 object-cover mb-4 rounded"/>
-      <p className="text-lg text-gray-700 mb-2">Price: ${product.price}</p>
-      <p className="text-lg text-gray-700 mb-2">Delivery Fee: {product.deliveryFee}</p>
-      <p className="text-lg text-gray-700 mb-2">Rating: {product.rating} / 5</p>  
-      {/* Additional product details can be added here */}
-    </div>
+    <section id="product-page"
+     className="p-6 w-full flex justify-center item-center mb-25">
+      <div className="w-180 h-155">
+        <div id='product-card'
+        className='h-full rounded flex flex-col p-3 gap-1 shadow-lg bg-white/70 backdrop-blur-md text-[#3e4a3d]'>
+          <img id='product-image'
+          src={product.images || ''} 
+          loading='lazy'
+          className='w-full min-h-3/5 rounded lg:h-50 bg-[#29fd53]/80'/>
+          <div className=" text-left block content-start">
+            <h2 className=' text-[#00a6fb] text-lg text-left font-bold truncate'>{product.title || 'Product Title'}</h2> 
+            <p className='text-left text-[#3e4a3d] py-1 line-clamp-2'>{product.description || 'Product Description'}</p> 
+            <p className='text-left text-[#3e4a3d] py-1'>${product.price || 'Pricing | Off'}</p>
+            <p className='text-sm text-left text-[#3e4a3d] py-1'>{product.deliveryFee || 'Delivery Fee'}</p>
+            <div className="inline-flex products-center gap-1 mt-1.5 ">
+              <Rating defaultValue={Math.floor(product.rating)} readOnly>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <RatingButton className="text-yellow-500 py-0" key={index}/>
+                ))}
+              </Rating>
+              <span className={`text-sm ${product.rating>=3?'text-green-500': 'text-red-600'}`}>
+                {`(${product.rating})`}
+              </span>
+            </div>
+            <div className="mt-4 inline-flex justify-around w-full items-center">
+              <button className="px-4 py-2 w-45 text-[#29fd53] bg-white rounded border border-[#29fd53] hover:bg-[#29fd53] hover:text-white transition">
+                Add to cart
+              </button>
+              <button className="px-4 py-2 w-45 bg-[#29fd53] text-white rounded hover:bg-[#00deff] transition transition-all-duration-300">
+                Buy now
+              </button>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </section>
   );
 } 

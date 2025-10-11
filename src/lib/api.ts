@@ -1,11 +1,4 @@
-interface Product {
-  id: number,
-  title: string,
-  price: number,
-  rating: number,
-  thumbnail: string,
-  deliveryFee: string,
-}
+import { Product, Category } from "@/types";
 
 export async function fetchProducts():Promise<Product[]>{
   const resp = await fetch('https://dummyjson.com/products');
@@ -16,30 +9,27 @@ export async function fetchProducts():Promise<Product[]>{
   return(data.products);
 }
 
-export async function fetchCategoryList():Promise<void | any[] | null>{
+export async function fetchCategoryList():Promise<Category[]>{
   try {
     const resp = await fetch('https://dummyjson.com/products/categories');
     const data = await resp.json();
-    return(data.products);
+    return (data.map((item: any) => item.slug));
   } catch (error) {
     console.error('Unable to fetch category list:', error);
   }
+  return [];
 }
-export async function searchProduct(kw:string):Promise<void | any[] | null>{
-  try {
-    const resp = await fetch(`https://dummyjson.com/products/search?q=${kw}`);
-    const data = await resp.json();
-    return(data.products);
-  } catch (error) {
-    console.error(`Unable to fetch products matching keyword ${kw}:`, error);
-  }
+export async function searchProduct(kw:string):Promise<Product[]>{
+  const resp = await fetch(`https://dummyjson.com/products/search?q=${kw}`);
+  if(!resp.ok)
+    throw new Error('Unable to fetch products');
+  const data = await resp.json();
+  return(data.products);
 }
-export async function fetchByCategory(kw:string):Promise<void | any[] | null>{
-  try {
-    const resp = await fetch(`https://dummyjson.com/products/category/${kw}`);
-    const data = await resp.json();
-    return(data.products);
-  } catch (error) {
-    console.error(`Unable to fetch products of category ${kw}:`, error);
-  }
+export async function fetchByCategory(kw:string):Promise<Product[]>{
+  const resp = await fetch(`https://dummyjson.com/products/category/${kw}`);
+  if(!resp.ok)
+    throw new Error('Unable to fetch products');
+  const data = await resp.json();
+  return(data.products);
 }
