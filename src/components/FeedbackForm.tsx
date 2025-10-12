@@ -1,5 +1,5 @@
 import { Rating,RatingButton } from "./ui/shadcn-io/rating"
-export default () => {
+export default function FeedbackForm(){
   return(
     <div id="feedback-form"
     className="p-4 w-100 h-80 border border-gray-300 rounded flex flex-col items-center gap-2.5 bg-white/70 backdrop-blur-md text-[#3e4a3d]">

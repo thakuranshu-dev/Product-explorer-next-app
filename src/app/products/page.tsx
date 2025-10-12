@@ -1,6 +1,6 @@
 "use client"
 import { redirect } from "next/navigation";
-export default function ProfilePage(){
+export default function ProductsPage(){
   redirect("/")
   return(
     <h1 className="text-center text-3xl font-bold p-6"

@@ -2,7 +2,7 @@
 import { getCartItems, handleAddToCart } from "@/lib/services"
 import { useEffect, useState, } from "react"
 
-export default ({id}: {id: number}) => {
+export default function AddToCart({id}: {id: number}){
   const [cartItems, setCartItems] = useState<number[]>([]);
 
   useEffect(()=>{

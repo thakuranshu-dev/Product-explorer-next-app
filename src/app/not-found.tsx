@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default ()=>{
+export default function NotFound(){
   return (
     <section className="w-full h-full p-20 flex flex-col items-center justify-between gap-5 bg-[url('/dribbble_1.gif')] bg-cover bg-center backdrop-blur-md">
         <h1 className="text-center text-6xl font-extrabold text-red-400">404</h1>

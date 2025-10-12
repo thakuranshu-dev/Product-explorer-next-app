@@ -1,6 +1,6 @@
 import { fetchProducts, fetchProductById } from "@/lib/api";
 import { Rating,RatingButton } from "@/components/ui/shadcn-io/rating";
-import FavouriteButton from "@/components/FavouriteButton";
+import AddToCart from "@/components/FavouriteButton";
 import { Product } from "@/types";
 import { notFound } from "next/navigation";
 
@@ -60,7 +60,7 @@ export default async function ProductPage({ params }: Params) {
               </span>
             </div>
             <div className="mt-4 inline-flex justify-around w-full items-center">
-              <FavouriteButton id={product.id}/>
+              <AddToCart id={product.id}/>
               <button className="px-4 py-2 w-45 bg-[#29fd53] text-white rounded hover:bg-[#00deff] transition transition-all-duration-300">
                 Buy now
               </button>

@@ -3,7 +3,7 @@ import { Category, SetKW } from "@/types";
 import { fetchCategoryList } from "@/lib/api";
 import { useState, useEffect } from "react";
 
-export default ({setKW}: SetKW)=>{
+export default function FilterBar({setKW}: SetKW){
   const [categories, setCategories] = useState<Category[]>([]);
   const [value, setValue] = useState<string>('');
 
