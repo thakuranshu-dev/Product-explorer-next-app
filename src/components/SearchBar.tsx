@@ -10,7 +10,6 @@ export default function SearchBar({setKW}: SetKW) {
       onChange={(e)=>setKW(e.target.value)}
       className="h-full px-2 border border-green-400 rounded focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
       />
-        {/* TODO: implement debouncing */}
     </form>
   )
 }

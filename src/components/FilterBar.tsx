@@ -1,5 +1,5 @@
 "use client";
-import { Product, Category, SetKW } from "@/types";
+import { Category, SetKW } from "@/types";
 import { fetchCategoryList } from "@/lib/api";
 import { useState, useEffect } from "react";
 

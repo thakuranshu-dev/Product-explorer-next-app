@@ -1,6 +1,8 @@
-import { fetchProducts } from "@/lib/api";
+import { fetchProducts, fetchProductById } from "@/lib/api";
 import { Rating,RatingButton } from "@/components/ui/shadcn-io/rating";
+import FavouriteButton from "@/components/FavouriteButton";
 import { Product } from "@/types";
+import { notFound } from "next/navigation";
 
 type Params = {
   params: {
@@ -20,16 +22,18 @@ export async function generateStaticParams(){
 
 export default async function ProductPage({ params }: Params) {
   const { id } = params;
-  let product: Product | null = null; 
+  let product: Product | null = null;
   try {
-    const products = await fetchProducts();
-    product = products.find((p) => p.id.toString() === id) || null;
+    product = await fetchProductById(id);
+    console.log(product);
+    
   } catch (error) {
     console.error('Unable to fetch product details:', error);
   } 
-  if (!product) {
-    return <p className="p-4 w-full h-full block text-center  border">Product not found.</p>;
-  }
+  //not found handling
+  if (product === null) {
+    notFound();
+  }else
   return (  
     <section id="product-page"
      className="p-6 w-full flex justify-center item-center mb-25">
@@ -56,9 +60,7 @@ export default async function ProductPage({ params }: Params) {
               </span>
             </div>
             <div className="mt-4 inline-flex justify-around w-full items-center">
-              <button className="px-4 py-2 w-45 text-[#29fd53] bg-white rounded border border-[#29fd53] hover:bg-[#29fd53] hover:text-white transition">
-                Add to cart
-              </button>
+              <FavouriteButton id={product.id}/>
               <button className="px-4 py-2 w-45 bg-[#29fd53] text-white rounded hover:bg-[#00deff] transition transition-all-duration-300">
                 Buy now
               </button>
