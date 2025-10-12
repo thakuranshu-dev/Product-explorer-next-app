@@ -9,11 +9,11 @@ export async function fetchProducts():Promise<Product[]>{
   return(data.products);
 }
 
-export async function fetchCategoryList():Promise<Category[]>{
+export async function fetchCategoryList():Promise<string[]>{
   try {
     const resp = await fetch('https://dummyjson.com/products/categories');
     const data = await resp.json();
-    return (data.map((item: any) => item.slug));
+    return (data.map((item: Category) => item.slug));
   } catch (error) {
     console.error('Unable to fetch category list:', error);
     return [];
