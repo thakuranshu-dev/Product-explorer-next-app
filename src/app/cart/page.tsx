@@ -1,14 +1,27 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import CartItem from "@/components/CartItem";
+import { getCartItems } from "@/lib/services";
+import { Product } from "@/types";
 
 export default function Cart(){
-  const [cart_items, setCart_items] = useState([]);
+  const [cart_items, setCart_items] = useState<Product[]>([]);
+  // const [total_price, setTotal_price] = useState<number>(0);
+
+  useEffect(()=>{
+    setCart_items(getCartItems());
+  },[]);
+
+  const total_price = useMemo(
+    () => (Array.isArray(cart_items) ? cart_items.reduce((sum, item) => sum + (item.price || 0), 0) : 0),
+    [cart_items]
+  );
+
   return(
-    <div className="p-6 flex flex-col justify-center items-center">
+    <div className="p-6 flex flex-col gap-4 justify-center items-center pb-20">
       {Array.isArray(cart_items) && cart_items.length>0?
         cart_items.map((item, index)=>(
-          <CartItem key={index} item={item} />
+          <CartItem key={index} item={item} quantity={1} />
         )) :
         <p className="text-center text-2xl font-bold p-6x content-center">
           Your cart is empty. 🤔
@@ -16,10 +29,10 @@ export default function Cart(){
       }
       <div className="md:w-3/5 bg-white/70 backdrop-blur-md rounded text-[#3e4a3d] sm:w-full ">
         <div className="p-4  flex flex-col">
-          <h5 className="font-bold ">Price Details ({5})</h5>
+          <h5 className="font-bold ">Price Details ({cart_items.length})</h5>
           <div className="inline-flex justify-between w-full">
             <p>Total Product Price</p>
-            <p>₹{2000}</p>
+            <p>₹{Math.round(total_price*80)}</p>
           </div>
           <div className="inline-flex justify-between w-full">
             <p>Total Discount</p>

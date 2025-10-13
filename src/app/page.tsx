@@ -66,7 +66,7 @@ export default function Home() {
         }
       })();
       return ()=>{mounted=false};
-      }, 300);
+      }, 500);
       return ()=>clearTimeout(id);
   },[searchKW]);
 

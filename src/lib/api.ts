@@ -40,7 +40,6 @@ export async function fetchProductById(id:string):Promise<Product | null>{
     if(!resp.ok)
       return null;
     const data = await resp.json();
-    console.log(data);
     
     return(data);
   }catch(error){

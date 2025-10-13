@@ -123,8 +123,8 @@ main::-webkit-scrollbar {
 }
 
 html.dark .navigation{
-  background-color: var(--foreground);
-  color: var(--background);
+  background-color: black;
+  color: white;
 }
 
 .navigation ul{
