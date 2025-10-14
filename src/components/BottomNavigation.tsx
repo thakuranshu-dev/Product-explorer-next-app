@@ -15,7 +15,7 @@ export default function BottomNavigation() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   useEffect(()=>{
     setActiveIndex(routes.findIndex(route => route.href === window.location.pathname));
-  },[])
+  },)
 
   // Orders: ReceiptLong, ListAlt, AssignmentTurnedIn, Description, GiftBox,
   return (
