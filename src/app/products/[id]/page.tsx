@@ -4,12 +4,6 @@ import AddToCartButton from "@/components/FavouriteButton";
 import { Product } from "@/types";
 import { notFound } from "next/navigation";
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
-
 export const revalidate = 60;
 
 export async function generateStaticParams(){
@@ -22,7 +16,7 @@ export async function generateStaticParams(){
   }));
 }
 
-export default async function ProductPage({ params }: PageProps) {
+export default async function ProductPage({ params }: { params: { id: string } }) {
   const { id } = params;
   let product: Product | null = null;
   try {
