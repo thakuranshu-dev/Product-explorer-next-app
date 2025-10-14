@@ -16,7 +16,9 @@ export async function generateStaticParams(){
   const products: Product[] = await fetchProducts();
 
   return products.map((product) =>({
-    id: product.id.toString()
+    params: {
+      id: product.id.toString()
+    }
   }));
 }
 
