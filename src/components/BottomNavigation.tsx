@@ -1,7 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Home, Person, ShoppingCart,Favorite, Settings, Edit, LocalShipping, IndeterminateCheckBox } from '@mui/icons-material';
+// Orders: ReceiptLong, ListAlt, AssignmentTurnedIn, Description, GiftBox,
 
 export default function BottomNavigation() {
   const routes = [
@@ -11,13 +13,12 @@ export default function BottomNavigation() {
     { href: '/orders', label: 'Orders', icon: <IndeterminateCheckBox /> },
     { href: '/profile', label: 'Profile', icon: <Person /> },
   ];
+  
+  const pathname = usePathname();
+  const [activeIndex, setActiveIndex] = useState<number>(
+    routes.findIndex(route => route.href === pathname)
+  );
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  useEffect(()=>{
-    setActiveIndex(routes.findIndex(route => route.href === window.location.pathname));
-  },)
-
-  // Orders: ReceiptLong, ListAlt, AssignmentTurnedIn, Description, GiftBox,
   return (
     <nav className="navigation">
       <ul>
@@ -34,7 +35,7 @@ export default function BottomNavigation() {
           </li>
         ))}
 
-        <div className={`indicator ${activeIndex===null? "hidden":"visible"}` }/>
+        <div className={`indicator ${(activeIndex===null || activeIndex<0)? "hidden":"visible"}` }/>
       </ul>
     </nav>
   );

@@ -1,6 +1,6 @@
 import { Product, Category } from "@/types";
 
-export async function fetchProducts():Promise<Product[]>{
+export async function fetchProducts():Promise<any[]>{
   const resp = await fetch('https://dummyjson.com/products');
   if(!resp.ok){
     throw new Error('Unable to fetch products');
@@ -19,14 +19,14 @@ export async function fetchCategoryList():Promise<string[]>{
     return [];
   }
 }
-export async function searchProduct(kw:string):Promise<Product[]>{
+export async function searchProduct(kw:string):Promise<any[]>{
   const resp = await fetch(`https://dummyjson.com/products/search?q=${kw}`);
   if(!resp.ok)
     throw new Error('Unable to fetch products');
   const data = await resp.json();
   return(data.products);
 }
-export async function fetchByCategory(kw:string):Promise<Product[]>{
+export async function fetchByCategory(kw:string):Promise<any[]>{
   const resp = await fetch(`https://dummyjson.com/products/category/${kw}`);
   if(!resp.ok)
     throw new Error('Unable to fetch products');
@@ -34,7 +34,7 @@ export async function fetchByCategory(kw:string):Promise<Product[]>{
   return(data.products);
 }
 
-export async function fetchProductById(id:string):Promise<Product | null>{
+export async function fetchProductById(id:string):Promise<any | null>{
   try{
     const resp = await fetch(`https://dummyjson.com/products/${id}`);
     if(!resp.ok)
