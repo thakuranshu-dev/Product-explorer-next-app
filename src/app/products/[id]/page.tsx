@@ -16,11 +16,11 @@ export async function generateStaticParams(){
   }));
 }
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
+export default async function ProductPage({ params }: { params: { id: Promise<string> } }) {
   const { id } = params;
   let product: ProductDetail | null = null;
   try {
-    product = await fetchProductById(id);
+    product = await fetchProductById(await id);
     console.log(product);
   } catch (error) {
     console.error('Unable to fetch product details:', error);
