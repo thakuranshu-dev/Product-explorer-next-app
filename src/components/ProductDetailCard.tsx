@@ -13,7 +13,7 @@ export default function ProductDetailCard({ props }: props) {
   return (
     <div
       id="product-card"
-      className="w-full rounded flex flex-col lg:flex-col p-4 gap-4 shadow-lg bg-white/90 backdrop-blur-md text-[#3e4a3d]"
+      className="w-full rounded flex flex-col lg:flex-col p-4 lg:px-10 gap-4 shadow-lg bg-white/90 backdrop-blur-md text-[#3e4a3d]"
     >
       <div
         id="product-image"

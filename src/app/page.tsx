@@ -99,26 +99,27 @@ export default function Home() {
         </div>
     ): null}
 
-    <div className="font-sans w-full flex flex-row flex-wrap items-center justify-items-start min-h-screen pb-20 gap-4 sm:p-20 sm:items-start m-0 p-0">
-      {/* Loading State Handling */}
-      {loading ? (
-        Array.from({ length: 8 }).map((_, index) => (
-          <div key={index} className="flex-grow basis-full sm:basis-1/3 sm:flex-grow-none lg:basis-1/4 lg:h-80 p-2">
-            <SkeletonCard />
-          </div>
-        ))
-      ) :
-      Array.isArray(products) && products.length>0 ?
-      products.map((product)=>(
-        <div key={product.id}
-        className="flex-grow basis-full sm:basis-1/3 sm:flex-grow-none lg:basis-1/4 lg:h-80 p-2">
-          <Link href={`/products/${product.id}`} key={product.id}>
-            <ProductCard item={product} details={false}/>
-          </Link>
+    <div className="font-sans w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 min-h-screen pb-20 sm:p-20 p-4">
+  {/* Loading State Handling */}
+  {loading ? (
+    Array.from({ length: 8 }).map((_, index) => (
+      <div key={index} className="h-80">
+        <SkeletonCard />
+      </div>
+    ))
+  ) : Array.isArray(products) && products.length > 0 ? (
+    products.map((product) => (
+      <Link href={`/products/${product.id}`} key={product.id}>
+        <div className="h-80">
+          <ProductCard item={product} details={false} />
         </div>
-      )): <p>No Products Found! 👻</p>
-      }
-    </div>
+      </Link>
+    ))
+  ) : (
+    <p className="col-span-full text-center text-lg">No Products Found! 👻</p>
+  )}
+</div>
+
     </>
   );
 }

@@ -31,18 +31,18 @@ export default async function ProductPage({ params }: { params: { id: string } }
   }else
   return (  
     <section id={product.title}     
-    className="w-full p-6 pb-10 flex flex-col lg:flex-row gap-5 shadow-lg bg-white/90 backdrop-blur-md text-[#3e4a3d]">
+    className="w-full p-6 pb-10 flex flex-col lg:flex-row  lg:px-10 gap-5 shadow-lg bg-white/90 backdrop-blur-md text-[#3e4a3d]">
       {/* Product info */}
       <div className="lg:w-1/2">
         <ProductDetailCard props={product} />
       </div>
       
       {/* Product reviews*/}
-      <div className="lg:w-1/2 flex flex-col gap-5">
-      <h1 className="text-3xl font-bold text-green-800">Customer Reviews</h1>
-      {product.reviews?.map((review,idx)=>(
-        <ReviewCard key={idx} review={review} />
-      ))}
+      <div className="lg:w-1/2 flex flex-col gap-5 lg:pl-10 ">
+        <h1 className="text-3xl font-bold text-green-800">Customer Reviews</h1>
+        {product.reviews?.map((review,idx)=>(
+          <ReviewCard key={idx} review={review} />
+        ))}
       </div>
     </section>
     

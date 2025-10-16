@@ -19,22 +19,24 @@ export default function ReviewCard({review}: props) {
 console.log(local);
   return (
     <div>
-      <h2 className="text-[#00a6fb] text-base font-bold truncate">
+      <h2 className="text-[#00a6fb] text-lg font-bold truncate">
         {review.reviewerName || 'User'}
       </h2>
       <div className="inline-flex items-center gap-2 mt-1">
+        <span className='text-base'>Rated: </span>
         <Rating defaultValue={Math.floor(review.rating)} readOnly>
           {Array.from({ length: 5 }).map((_, index) => (
             <RatingButton className="text-yellow-500" key={index} />
           ))}
         </Rating>
       </div>
-      <p className="text-sm text-[#3e4a3d]">
-        {review.comment || 'Comment:'}
+      <p className="text-base text-[#3e4a3d]">
+        Comment: {review.comment}
       </p>
       <p className="text-xs text-[#3e4a3d]">
-        {local || 'Created at:'}
+        {local}
       </p>
+      <hr className='w-md mt-1 bg-gray-400'></hr>
     </div>
   )
 }
